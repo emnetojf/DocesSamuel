@@ -19,6 +19,6 @@ namespace DocesSamuel.Dominio
         [StringLength(8, MinimumLength = 6, ErrorMessage = "Mínimo de caracteres:{2}; Máximo de caracteres:{1}")]
         public string strSenha { get; set; }
         
-        public Boolean booAdmin { get; set; }
+        public bool booAdmin { get; set; }
     }
 }
