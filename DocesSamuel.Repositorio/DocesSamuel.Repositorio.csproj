@@ -12,8 +12,4 @@
     <ProjectReference Include="..\DocesSamuel.Dominio\DocesSamuel.Dominio.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Repositorio\" />
-  </ItemGroup>
-
 </Project>
