@@ -17,6 +17,8 @@ namespace DocesSamuel.Repositorio.Config
             builder.Property(usr => usr.strEmail).IsRequired().HasMaxLength(50);
             builder.Property(usr => usr.strSenha).IsRequired().HasMaxLength(20);
             builder.Property(usr => usr.booAdmin);
+            // Relacionamento
+            builder.HasMany(usr => usr.Pedidos).WithOne(ped => ped.Usuario);
         }
     }
 }

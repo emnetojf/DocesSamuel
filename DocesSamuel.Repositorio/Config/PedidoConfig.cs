@@ -16,6 +16,9 @@ namespace DocesSamuel.Repositorio.Config
             builder.Property(ped => ped.dtPedido).IsRequired();
             builder.Property(ped => ped.UsuarioId).IsRequired();
             builder.Property(ped => ped.strObs).HasMaxLength(100);
+
+            // Relacionamento
+            builder.HasMany(ped => ped.ItemPedidos).WithOne(item => item.Pedido);
         }
     }
 }

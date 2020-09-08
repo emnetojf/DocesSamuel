@@ -1,10 +1,16 @@
+using DocesSamuel.Dominio.Contratos;
+using DocesSamuel.Repositorio.Context;
+using DocesSamuel.Repositorio.Repositorio;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+
+
 
 namespace DocesSamuel.Web
 {
@@ -20,7 +26,24 @@ namespace DocesSamuel.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+
+            var connectionString = Configuration.GetConnectionString("DocesSamuelDB");
+            services.AddDbContext<DocesSamuelContext>(options =>
+                    options.UseOracle(connectionString, m => m.MigrationsAssembly("DocesSamuel.Repositorio") 
+                                                              .UseOracleSQLCompatibility("11")));
+
+
+            services.AddScoped<IUsuarioRepos, UsuarioRepositorio>();
+            services.AddScoped<IProdutoRepos, ProdutoRepositorio>();
+            services.AddScoped<IGrupoRepos, GrupoRepositorio>();
+            services.AddScoped<IPedidoRepos, PedidoRepositorio>();
+            services.AddScoped<IItemPedidoRepos, ItemPedRepositorio>();
+
+
+
+
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -29,7 +52,7 @@ namespace DocesSamuel.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -44,18 +67,13 @@ namespace DocesSamuel.Web
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            if (!env.IsDevelopment())
-            {
-                app.UseSpaStaticFiles();
-            }
+            app.UseSpaStaticFiles();
 
-            app.UseRouting();
-
-            app.UseEndpoints(endpoints =>
+            app.UseMvc(routes =>
             {
-                endpoints.MapControllerRoute(
+                routes.MapRoute(
                     name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
+                    template: "{controller}/{action=Index}/{id?}");
             });
 
             app.UseSpa(spa =>
@@ -67,7 +85,8 @@ namespace DocesSamuel.Web
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseAngularCliServer(npmScript: "start");
+                    //spa.UseAngularCliServer(npmScript: "start")
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:3005/");
                 }
             });
         }

@@ -1,4 +1,7 @@
-﻿using System;
+﻿using DocesSamuel.Dominio.Entidades;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace DocesSamuel.Dominio
@@ -20,5 +23,7 @@ namespace DocesSamuel.Dominio
         public string strSenha { get; set; }
         
         public bool booAdmin { get; set; }
+
+        public virtual ICollection<Pedido> Pedidos { get; set; }
     }
 }

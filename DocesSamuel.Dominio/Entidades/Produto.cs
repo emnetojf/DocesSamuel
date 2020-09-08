@@ -19,6 +19,6 @@ namespace DocesSamuel.Dominio.Entidades
 
         public string strNomeArq { get; set; }
         
-        //public ICollection<Pedidos> Pedidos { get; set; }
+        public ICollection<ItemPedido> itemPedidos { get; set; }
     }
 }

@@ -20,5 +20,6 @@ namespace DocesSamuel.Dominio.Entidades
         [StringLength(200, ErrorMessage = "Máximo de caracteres:{1}")]
         public string strObs { get; set; }
 
+        public virtual ICollection<ItemPedido> ItemPedidos { get; set; }
     }
 }

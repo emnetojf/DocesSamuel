@@ -17,6 +17,9 @@ namespace DocesSamuel.Repositorio.Config
             builder.Property(prod => prod.strNmProd).IsRequired().HasMaxLength(100);
             builder.Property(prod => prod.douPrecoUnit).IsRequired();
             builder.Property(prod => prod.strNomeArq).HasMaxLength(100);
+
+            // Relacionamento
+            builder.HasMany(prod => prod.itemPedidos).WithOne(item => item.Produto);
         }
     }
 }

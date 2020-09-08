@@ -11,7 +11,7 @@ namespace DocesSamuel.Repositorio.Config
     {
         public void Configure(EntityTypeBuilder<ItemPedido> builder)
         {
-            builder.HasKey(item => item.IdItemPed);
+            builder.HasKey(item => item.IdItem);
 
             builder.Property(item => item.PedidoId).IsRequired();
             builder.Property(item => item.ProdutoId).IsRequired();

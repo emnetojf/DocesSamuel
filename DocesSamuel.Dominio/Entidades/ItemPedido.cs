@@ -6,7 +6,7 @@ namespace DocesSamuel.Dominio.Entidades
 {
     public class ItemPedido
     {
-        public int IdItemPed { get; set; }
+        public int IdItem { get; set; }
 
         public int PedidoId { get; set; }
         public virtual Pedido Pedido { get; set; }
@@ -15,5 +15,6 @@ namespace DocesSamuel.Dominio.Entidades
         public virtual Produto Produto { get; set; }
 
         public double douQuant { get; set; }
+    
     }
 }
